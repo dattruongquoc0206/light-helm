@@ -74,3 +74,8 @@ jobs:
         run: |
           helm upgrade --install model-serving ./charts/model-serving \
             --namespace api
+      - name: Check deployment
+        run: |
+          kubectl get deployments -n api
+          kubectl get pods -n api
+          kubectl get svc -n api    
