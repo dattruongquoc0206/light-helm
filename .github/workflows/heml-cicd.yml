@@ -1,0 +1,81 @@
+name: CI/CD FastAPI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: myuser/fastapi-model-serving
+  KUBE_NAMESPACE: api
+  HELM_RELEASE: model-serving
+
+  deploy-helm:
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.27.3'
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'v3.12.3'
+
+      - name: Install Infisical CLI
+        run: |
+          curl -1sLf \
+          'https://artifacts-cli.infisical.com/setup.deb.sh' \
+          | sudo -E bash
+          sudo apt-get update && sudo apt-get install -y infisical
+      - name: Install gke-cloud-auth-plugin
+        run: |
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get update
+          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+          
+      - name: Authenticate to GCP via Infisical & setup kubeconfig
+        run: |
+          infisical run --env=prod -- \
+            bash -c '
+              # 0. Create file key.json from secret
+              echo "$GCP_SA_KEY" > /tmp/key.json
+              export GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json
+
+              # 1. Auth GCP: access gcloud 
+              gcloud auth activate-service-account --key-file=<(echo "$GCP_SA_KEY")
+
+              # 2. Set project
+              gcloud config set project "$GCP_PROJECT_ID"
+
+              # 3. Set region
+              gcloud config set compute/region "asia-southeast1"
+              
+              # 4. Get kubeconfig for GKE cluster: kubectl <-> gke
+              echo "Fetching kubeconfig for GKE cluster..."
+              gcloud container clusters get-credentials "light-cluster" --region "asia-southeast1"
+              
+              # 5. check kubeconfig
+              echo "Kubeconfig file content:"
+              cat ~/.kube/config
+              
+              # 6. Check kubectl
+              echo "Checking kubectl configuration..."
+              kubectl get ns
+
+            '
+        env:
+          INFISICAL_TOKEN: ${{ secrets.INFISICAL_TOKEN }}
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install model-serving ./charts/model-serving \
+            --namespace api

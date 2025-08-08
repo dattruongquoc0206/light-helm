@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: dattruongquoc/app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+nodeSelector:
+  namespace: api
+
+tolerations:
+  - key: "namespace"
+    operator: "Equal"
+    value: "api"
+    effect: "NoSchedule"
