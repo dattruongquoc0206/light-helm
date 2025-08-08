@@ -5,15 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
-
-env:
-  DOCKER_IMAGE: myuser/fastapi-model-serving
-  KUBE_NAMESPACE: api
-  HELM_RELEASE: model-serving
-
+  env:
 jobs:
   deploy-helm:
-    needs: build-and-push-image
     runs-on: ubuntu-latest
 
     steps:
