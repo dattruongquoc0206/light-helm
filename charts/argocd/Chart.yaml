@@ -1,0 +1,5 @@
+apiVersion: v2
+name: argocd-custom
+description: Custom Helm chart for Argo CD deployment
+version: 0.1.0
+appVersion: "v2.8.0" # Phiên bản Argo CD bạn muốn deploy

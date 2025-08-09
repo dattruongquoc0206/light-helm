@@ -1,0 +1,16 @@
+namespace: cicd-namespace
+
+server:
+  nodeSelector:
+    role: cicd
+  tolerations:
+    - key: namespace
+      operator: Equal
+      value: cicd_namespace
+      effect: NoSchedule
+
+replicaCount: 1
+image:
+  repository: argoproj/argocd
+  tag: v2.8.0
+  pullPolicy: IfNotPresent
