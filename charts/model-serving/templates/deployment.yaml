@@ -25,3 +25,4 @@ spec:
             - containerPort: {{ .Values.service.targetPort }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+#change trigger helm release

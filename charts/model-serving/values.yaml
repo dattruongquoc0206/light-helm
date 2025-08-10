@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: dattruongquoc/app
-  tag: latest
+  tag: latestt
   pullPolicy: IfNotPresent
 
 service:
@@ -26,3 +26,4 @@ tolerations:
     operator: "Equal"
     value: "api"
     effect: "NoSchedule"
+#change triger helm release
