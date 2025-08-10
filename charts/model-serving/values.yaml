@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: dattruongquoc/app
-  tag: latestt
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
