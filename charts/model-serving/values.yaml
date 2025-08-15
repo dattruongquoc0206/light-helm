@@ -16,7 +16,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: ""   # hoặc "*" để wildcard
+    - host: "*"   # hoặc "*" để wildcard
       paths:
         - path: /
           pathType: Prefix
