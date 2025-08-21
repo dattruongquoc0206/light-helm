@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: {{ include "model-serving.fullname" . }}
   labels:
-    {{- include "mychart.labels" . | nindent 4 }}
+    {{- include "odel-serving.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
