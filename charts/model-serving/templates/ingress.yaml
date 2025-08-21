@@ -19,7 +19,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "mychart.fullname" $ }}
+                name: {{ include "model-serving.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
