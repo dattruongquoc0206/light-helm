@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: dattruongquoc/app
-  tag: 5f1e63cb3687a6c9b09242f82045fb5334e1de65
+  tag: 67d0b0fc7cc6ed9c1e50170f1dc0c6ade9b9419d
   pullPolicy: IfNotPresent
 
 service:
