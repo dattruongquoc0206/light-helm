@@ -1,3 +1,5 @@
+fullnameOverride: model-serving
+
 replicaCount: 1
 
 image:
@@ -13,9 +15,9 @@ service:
 ingress:
   enabled: true
   className: nginx
-
+  annotations: {}
   hosts:
-    - host: ""   # hoặc "*" để wildcard
+    - host: ""   
       paths:
         - path: /app
           pathType: Prefix
