@@ -127,7 +127,7 @@ global:
 
   # -- Default tolerations for all components
   tolerations: 
-    - key: "cicd-nodepool"
+    - key: "cicd_nodepool"
       operator: "Equal"
       value: "new"
       effect: "NoSchedule"
