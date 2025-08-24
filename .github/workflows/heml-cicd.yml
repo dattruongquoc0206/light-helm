@@ -72,8 +72,8 @@ jobs:
 
       - name: Deploy with Helm
         run: |
-          helm upgrade --install nginx-ingress-new ./charts/ingress-nginx \
-            --namespace ingress-namespace-new
+          helm upgrade --install argocd-new ./charts/argocd \
+            --namespace cicd-namespace-new
 
       # - name: Check deployment
       #   run: |

@@ -123,10 +123,15 @@ global:
 
   # -- Default node selector for all components
   nodeSelector:
-    kubernetes.io/os: linux
+    namespace: cicd-new
 
   # -- Default tolerations for all components
-  tolerations: []
+  tolerations: 
+    - key: "cicd-nodepool"
+      operator: "Equal"
+      value: "new"
+      effect: "NoSchedule"
+
 
   # Default affinity preset for all components
   affinity:
