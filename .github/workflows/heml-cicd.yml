@@ -75,7 +75,7 @@ jobs:
           cd charts/argo-cd
           helm dependency update
 
-          helm upgrade --install argocd-new ./charts/argo-cd \
+          helm upgrade --install argocd-new ./argo-cd \
             --namespace cicd-namespace-new
 
       # - name: Check deployment
