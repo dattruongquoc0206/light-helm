@@ -252,7 +252,12 @@ controller:
   # -- Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations: 
+    tolerations:
+      - key: "ingress_nodepool"
+        operator: "Equal"
+        value: "new"
+        effect: "NoSchedule"
   #  - key: "key"
   #    operator: "Equal|Exists"
   #    value: "value"
@@ -335,7 +340,7 @@ controller:
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
   nodeSelector:
-    namespace: api
+    namespace: ingress-new
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ##
