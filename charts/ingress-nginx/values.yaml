@@ -22,16 +22,7 @@ commonLabels: {}
 controller:
   name: controller
   enableAnnotationValidations: true
-
-  nodeSelector:
-    namespace: ingress-new
-
-  tolerations:
-    - key: "ingress_nodepool"
-      operator: "Equal"
-      value: "new"
-      effect: "NoSchedule"
-
+  
   image:
     ## Keep false as default for now!
     chroot: false
@@ -344,7 +335,7 @@ controller:
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
   nodeSelector:
-    kubernetes.io/os: linux
+    namespace: api
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ##
