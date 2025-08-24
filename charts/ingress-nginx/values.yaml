@@ -253,11 +253,10 @@ controller:
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
   tolerations: 
-    tolerations:
-      - key: "ingress_nodepool"
-        operator: "Equal"
-        value: "new"
-        effect: "NoSchedule"
+    - key: "ingress_nodepool"
+      operator: "Equal"
+      value: "new"
+      effect: "NoSchedule"
   #  - key: "key"
   #    operator: "Equal|Exists"
   #    value: "value"
