@@ -22,6 +22,16 @@ commonLabels: {}
 controller:
   name: controller
   enableAnnotationValidations: true
+
+  nodeSelector:
+    namespace: ingress-new
+
+  tolerations:
+    - key: "ingress_nodepool"
+      operator: "Equal"
+      value: "new"
+      effect: "NoSchedule"
+
   image:
     ## Keep false as default for now!
     chroot: false
@@ -126,7 +136,7 @@ controller:
   # We do not support namespaced IngressClasses, yet, so a ClusterRole and a ClusterRoleBinding is required.
   ingressClassResource:
     # -- Name of the IngressClass
-    name: nginx
+    name: nginx-new
     # -- Create the IngressClass or not
     enabled: true
     # -- If true, Ingresses without `ingressClassName` get assigned to this IngressClass on creation.
@@ -138,7 +148,7 @@ controller:
     # -- Controller of the IngressClass. An Ingress Controller looks for IngressClasses it should reconcile by this value.
     # This value is also being set as the `--controller-class` argument of this Ingress Controller.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class
-    controllerValue: k8s.io/ingress-nginx
+    controllerValue: k8s.io/ingress-nginx-new
     # -- Aliases of this IngressClass. Creates copies with identical settings but the respective alias as name.
     # Useful for development environments with only one Ingress Controller but production-like Ingress resources.
     # `default` gets enabled on the original IngressClass only.
