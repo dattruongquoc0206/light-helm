@@ -2416,7 +2416,7 @@ server:
     hostname: ""
 
     # -- The path to Argo CD server
-    path: /
+    path: /argocd
 
     # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
